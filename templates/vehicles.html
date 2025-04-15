@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicles </title>
+     <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/vehicles.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <div class="vehicles-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Fleet Management</h2>
+      </div>
+      <hr class="sidebar-divider">
+      <ul class="sidebar-menu">
+        <li class="active">
+          <a href="/dashboard">
+            <i class="fa-solid fa-home"></i> Dashboard
+          </a>
+        </li>
+        <li>
+          <a href="/vehicles">
+            <i class="fa-solid fa-car"></i> Vehicles
+          </a>
+        </li>
+        <li>
+          <a href="/add-vehicle">
+            <i class="fa-solid fa-plus"></i> Add Vehicle
+          </a>
+        </li>
+        <li>
+          <a href="/logout">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <main class="content">
+      <h2><i class="fa-solid fa-list"></i> List of Vehicles</h2>
+      <table class="records-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for vehicle in vehicles %}
+          <tr>
+            <td>{{ vehicle.name }}</td>
+            <td>{{ vehicle.vehicle_type }}</td>
+            <td>{{ vehicle.model }}</td>
+            <td>{{ vehicle.year }}</td>
+            <td>{{ vehicle.status }}</td>
+            <td>
+              <a href="/vehicle/{{ vehicle.id }}" class="btn">View</a>
+              <a href="/edit-vehicle/{{ vehicle.id }}" class="btn">Edit</a>
+              <form method="POST" action="/delete-vehicle/{{ vehicle.id }}" style="display:inline;">
+                <button type="submit" class="btn delete-btn">Delete</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </main>
+  </div>
+</body>
+</html>

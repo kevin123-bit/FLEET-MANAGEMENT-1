@@ -1,0 +1,120 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: url('../images/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+}
+
+header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 10px 0;
+  z-index: 100;
+}
+header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0 auto;
+}
+header .logo h1 {
+  font-size: 1.8rem;
+  color: #fff;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+}
+.nav-links li {
+  margin-left: 20px;
+}
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  margin-left: 20px;
+}
+.hamburger span {
+  height: 3px;
+  width: 25px;
+  background: #fff;
+  margin-bottom: 4px;
+  border-radius: 5px;
+}
+
+main {
+  margin-top: 80px;
+}
+.welcome-section {
+  text-align: center;
+  padding: 100px 20px;
+  background: rgba(0, 0, 0, 0.4);
+  margin: 20px auto;
+  width: 80%;
+  border-radius: 10px;
+}
+.welcome-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+.welcome-section p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #ddd;
+}
+.btn {
+  background: #3498db;
+  color: #fff;
+  padding: 10px 25px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+.btn:hover {
+  background: #2980b9;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    position: absolute;
+    right: 0;
+    top: 60px;
+    background: rgba(0, 0, 0, 0.8);
+    flex-direction: column;
+    width: 200px;
+    display: none;
+  }
+  .nav-links li {
+    margin: 15px 0;
+    text-align: center;
+  }
+  .hamburger {
+    display: flex;
+  }
+}
+
+.nav-active {
+  display: flex !important;
+}

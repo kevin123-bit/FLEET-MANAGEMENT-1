@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driver Performance </title>
+     <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/driver_performance.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+  <div class="performance-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Fleet Management</h2>
+      </div>
+      <hr class="sidebar-divider">
+      <ul class="sidebar-menu">
+        <li>
+          <a href="/dashboard">
+            <i class="fa-solid fa-home"></i> Dashboard
+          </a>
+        </li>
+        <li class="active">
+          <a href="/driver-performance">
+            <i class="fa-solid fa-users"></i> Driver Performance
+          </a>
+        </li>
+        <li>
+          <a href="/vehicles">
+            <i class="fa-solid fa-car"></i> Vehicles
+          </a>
+        </li>
+        <li>
+          <a href="/logout">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+          </a>
+        </li>
+      </ul>
+    </aside>
+    <main class="content">
+      <h2><i class="fa-solid fa-chart-line"></i> Driver Performance Overview</h2>
+      <section class="statistics">
+        <h3>Safety Metrics</h3>
+        <div class="stats">
+          <div class="stat-box">
+            <h4>Average Speed Score</h4>
+            <p>{{ avg_speed_score }}</p>
+          </div>
+          <div class="stat-box">
+            <h4>Average Braking Score</h4>
+            <p>{{ avg_braking_score }}</p>
+          </div>
+          <div class="stat-box">
+            <h4>Safety Index</h4>
+            <p>{{ safety_index }}</p>
+          </div>
+          <div class="stat-box">
+            <h4>Top Driver</h4>
+            <p>{{ top_driver.name if top_driver else "N/A" }}</p>
+          </div>
+        </div>
+      </section>
+      <section class="performance-table">
+        <h3>Driver Performance Details</h3>
+        <table class="records-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Speed Score</th>
+              <th>Braking Score</th>
+              <th>Safety Rating</th>
+              <th>Badge</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for driver in drivers %}
+            <tr>
+              <td>{{ driver.name }}</td>
+              <td>{{ driver.speed_score }}</td>
+              <td>{{ driver.braking_score }}</td>
+              <td>{{ driver.safety_rating }}</td>
+              <td>
+                <span class="badge" style="background-color: {{ get_safety_badge_color(driver.safety_rating) }};">
+                  {{ driver.safety_rating }}
+                </span>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

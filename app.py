@@ -5,11 +5,9 @@ import logging
 import json
 from importlib.metadata import version, PackageNotFoundError
 
-# Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Function to check and install required packages
 def check_dependencies():
     required_packages = [
         'flask',
@@ -21,6 +19,7 @@ def check_dependencies():
     try:
         for package in required_packages:
             try:
+
                 version(package.replace('_', '-'))
             except PackageNotFoundError:
                 logger.error(f"Package {package} not found")
@@ -45,20 +44,21 @@ except ImportError as e:
     logger.error(f"Failed to import required package: {e}")
     sys.exit(1)
 
-# Add the project root to Python path
 project_root = os.path.dirname(os.path.abspath(__file__))
 if project_root not in sys.path:
     sys.path.append(project_root)
 
-# Load environment variables
 if os.path.exists('.env'):
     from dotenv import load_dotenv
     load_dotenv()
 
+# Initialize Flask application and configure it
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key'  # In production, use a secure secret key
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///fleet.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Set up the database and login manager
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
@@ -164,7 +164,7 @@ def index():
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('dashboard'))
-    
+
     if request.method == 'POST':
         user = User.query.filter_by(username=request.form['username']).first()
         if user and user.password == request.form['password']:  # In production, use proper password verification
@@ -174,11 +174,12 @@ def login():
         flash('Invalid username or password')
     return render_template('login.html')
 
+
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if current_user.is_authenticated:
         return redirect(url_for('dashboard'))
-    
+
     if request.method == 'POST':
         if User.query.filter_by(username=request.form['username']).first():
             flash('Username already exists')
@@ -186,7 +187,7 @@ def signup():
         if User.query.filter_by(email=request.form['email']).first():
             flash('Email already registered')
             return redirect(url_for('signup'))
-        
+
         user = User(
             username=request.form['username'],
             password=request.form['password'],  # In production, use password hashing
@@ -195,14 +196,15 @@ def signup():
         db.session.add(user)
         try:
             db.session.commit()
-            login_user(user)
-            return redirect(url_for('dashboard'))
+            flash('Account created successfully. Please log in.')
+            return redirect(url_for('login'))  # Redirect to the login page
         except Exception as e:
             db.session.rollback()
             flash('Error creating account')
             return redirect(url_for('signup'))
-    
+
     return render_template('signup.html')
+
 
 @app.route('/logout')
 @login_required
@@ -217,16 +219,21 @@ def dashboard():
     drivers = Driver.query.all()
     return render_template('dashboard.html', vehicles=vehicles, drivers=drivers)
 
+
 @app.route('/vehicle/<int:id>')
 @login_required
 def vehicle_details(id):
-    vehicle = Vehicle.query.get_or_404(id)
+    vehicle = Vehicle.query.get_or_404(id)  # Fetch the vehicle by its ID
     maintenance_records = MaintenanceRecord.query.filter_by(vehicle_id=id).order_by(MaintenanceRecord.date.desc()).all()
     fuel_records = FuelRecord.query.filter_by(vehicle_id=id).order_by(FuelRecord.date.desc()).all()
-    return render_template('vehicle_details.html', 
-                         vehicle=vehicle, 
-                         maintenance_records=maintenance_records,
-                         fuel_records=fuel_records)
+
+    return render_template(
+        'vehicle_details.html',
+        vehicle=vehicle,
+        maintenance_records=maintenance_records,
+        fuel_records=fuel_records
+    )
+
 
 @app.route('/vehicle-tracking')
 @login_required
@@ -331,8 +338,22 @@ def add_vehicle():
             db.session.rollback()
             flash(f'Error adding vehicle: {str(e)}')
             return redirect(url_for('add_vehicle'))
-    
+
     return render_template('add_vehicle.html', current_year=current_year)
+
+
+@app.route('/delete-vehicle/<int:id>', methods=['POST'])
+@login_required
+def delete_vehicle(id):
+    vehicle = Vehicle.query.get_or_404(id)
+    try:
+        db.session.delete(vehicle)
+        db.session.commit()
+        flash('Vehicle deleted successfully!', 'success')
+    except Exception as e:
+        db.session.rollback()
+        flash(f'Error deleting vehicle: {str(e)}', 'error')
+    return redirect(url_for('vehicles'))
 
 @app.route('/edit-vehicle/<int:id>', methods=['GET', 'POST'])
 @login_required

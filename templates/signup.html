@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up </title>
+       <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}" />
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  </head>
+  <body>
+    <div class="signup-wrapper">
+      <form method="POST" class="signup-form">
+        <h2>Create an Account</h2>
+        <div class="input-group">
+          <i class="fa fa-user"></i>
+          <input type="text" id="username" name="username" required placeholder=" " />
+          <label for="username">Username</label>
+        </div>
+        <div class="input-group">
+          <i class="fa fa-envelope"></i>
+          <input type="email" id="email" name="email" required placeholder=" " />
+          <label for="email">Email</label>
+        </div>
+        <div class="input-group">
+          <i class="fa fa-lock"></i>
+          <input type="password" id="password" name="password" required placeholder=" " />
+          <label for="password">Password</label>
+        </div>
+        <button type="submit" class="btn">Sign Up</button>
+        <p class="login-link">Already have an account? <a href="/login">Login</a></p>
+      </form>
+    </div>
+  </body>
+</html>

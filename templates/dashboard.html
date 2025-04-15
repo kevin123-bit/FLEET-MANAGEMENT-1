@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dashboard</title>
+     <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+<div class="dashboard-container">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>Fleet Management</h2>
+        </div>
+        <hr class="sidebar-divider">
+        <ul class="sidebar-menu">
+            <li class="active">
+                <a href="/dashboard"><i class="fa-solid fa-home"></i> Home</a>
+            </li>
+            <li>
+                <a href="/vehicle-tracking"><i class="fa-solid fa-car"></i> Vehicle Tracking</a>
+            </li>
+            <li>
+                <a href="/fuel-management"><i class="fa-solid fa-gas-pump"></i> Fuel Management</a>
+            </li>
+            <li>
+                <a href="/maintenance"><i class="fa-solid fa-tools"></i> Maintenance</a>
+            </li>
+            <li>
+                <a href="/driver-performance"><i class="fa-solid fa-users"></i> Driver Performance</a>
+            </li>
+            <hr class="sidebar-divider">
+            <li>
+                <a href="/vehicles"><i class="fa-solid fa-list"></i> Vehicles</a>
+            </li>
+            <li>
+                <a href="/add-vehicle"><i class="fa-solid fa-plus"></i> Add Vehicle</a>
+            </li>
+            <hr class="sidebar-divider">
+
+            <li>
+                <a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="content">
+        <div class="dashboard-home">
+            <h2>Dashboard Overview</h2>
+            <div class="overview-widgets">
+                <div class="widget">
+                    <h3>Total Vehicles</h3>
+                    <p>{{ vehicles | length }}</p>
+                </div>
+                <div class="widget">
+                    <h3>Total Drivers</h3>
+                    <p>{{ drivers | length }}</p>
+                </div>
+            </div>
+
+            <div class="welcome-message">
+                <p>Welcome to your Fleet Management System.</p>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

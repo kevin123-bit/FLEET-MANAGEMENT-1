@@ -1,0 +1,134 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: url('../images/general-bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 250px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+}
+
+.sidebar-header {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.sidebar-divider {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 15px 0;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-menu li {
+    margin-bottom: 15px;
+}
+
+.sidebar-menu li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar-menu li a:hover {
+    background-color: #e9ecef;
+    color: #3498db;
+}
+.content-wrapper {
+    margin-left: 250px;
+    padding: 20px;
+    width: calc(100% - 250px);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+
+.header {
+    text-align: left;
+}
+
+.title {
+    font-size: 2rem;
+    color: #333;
+}
+
+.vehicle-info {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.vehicle-info h2 {
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.vehicle-info p {
+    font-size: 1rem;
+    margin: 8px 0;
+    color: #555;
+}
+
+.records-container {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.records-container h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.records-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.records-container li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.records-container li:last-child {
+    border-bottom: none;
+}
+
+.records-container p {
+    font-size: 1rem;
+    margin: 5px 0;
+    color: #555;
+}

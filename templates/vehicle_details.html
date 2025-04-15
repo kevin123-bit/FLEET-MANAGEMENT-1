@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Details </title>
+     <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/vehicle_details.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+    <div class="details-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Fleet Management</h2>
+            </div>
+            <hr class="sidebar-divider">
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="/dashboard"><i class="fa-solid fa-home"></i> Dashboard</a>
+                </li>
+                <li>
+                    <a href="/vehicles"><i class="fa-solid fa-car"></i> Vehicles</a>
+                </li>
+                <li>
+                    <a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="content-wrapper">
+            <header class="header">
+                <h1 class="title"><i class="fa-solid fa-car"></i> Vehicle Details</h1>
+            </header>
+            <section class="vehicle-info">
+                <h2>{{ vehicle.name }}</h2>
+                <p><strong>Type:</strong> {{ vehicle.vehicle_type }}</p>
+                <p><strong>Model:</strong> {{ vehicle.model }}</p>
+                <p><strong>Year:</strong> {{ vehicle.year }}</p>
+                <p><strong>Status:</strong> {{ vehicle.status }}</p>
+                <p><strong>Fuel Level:</strong> {{ vehicle.fuel_level }}%</p>
+                <p><strong>Tank Capacity:</strong> {{ vehicle.tank_capacity }} liters</p>
+            </section>
+            <section class="records-section">
+                <div class="records-container">
+                    <h3>Maintenance Records</h3>
+                    <ul>
+                        {% for record in maintenance_records %}
+                        <li>
+                            <p><strong>Date:</strong> {{ record.date }}</p>
+                            <p><strong>Description:</strong> {{ record.description }}</p>
+                            <p><strong>Status:</strong> {{ record.status }}</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="records-container">
+                    <h3>Fuel Records</h3>
+                    <ul>
+                        {% for record in fuel_records %}
+                        <li>
+                            <p><strong>Date:</strong> {{ record.date }}</p>
+                            <p><strong>Quantity:</strong> {{ record.quantity }} liters</p>
+                            <p><strong>Cost:</strong> ${{ record.cost }}</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

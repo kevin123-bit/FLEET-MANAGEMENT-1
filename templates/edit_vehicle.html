@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Vehicle </title>
+     <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/edit_vehicle.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+<div class="edit-vehicle-container">
+    <div class="form-wrapper">
+        <h2 class="title"><i class="fa-solid fa-pen-to-square"></i> Edit Vehicle</h2>
+        <form method="POST" class="edit-vehicle-form">
+            <label for="name">Vehicle Name</label>
+            <input type="text" id="name" name="name" value="{{ vehicle.name }}" required>
+
+            <label for="vehicle_type">Vehicle Type</label>
+            <input type="text" id="vehicle_type" name="vehicle_type" value="{{ vehicle.vehicle_type }}" required>
+
+            <label for="model">Model</label>
+            <input type="text" id="model" name="model" value="{{ vehicle.model }}" required>
+
+            <label for="year">Year</label>
+            <input type="number" id="year" name="year" value="{{ vehicle.year }}" required min="1900" max="{{ current_year }}">
+
+            <label for="tank_capacity">Tank Capacity (liters)</label>
+            <input type="number" id="tank_capacity" name="tank_capacity" value="{{ vehicle.tank_capacity }}" required>
+
+            <label for="image_url">Image URL</label>
+            <input type="url" id="image_url" name="image_url" value="{{ vehicle.image_url }}" required>
+
+            <button type="submit" class="btn">Update Vehicle</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

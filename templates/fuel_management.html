@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fuel Management</title>
+     <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/fuel_management.css') }}"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+  <div class="fuel-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Fleet Management</h2>
+      </div>
+      <hr class="sidebar-divider">
+      <ul class="sidebar-menu">
+        <li>
+          <a href="/dashboard">
+            <i class="fa-solid fa-home"></i> Dashboard
+          </a>
+        </li>
+        <li class="active">
+          <a href="/fuel-management">
+            <i class="fa-solid fa-gas-pump"></i> Fuel Management
+          </a>
+        </li>
+        <li>
+          <a href="/vehicles">
+            <i class="fa-solid fa-list"></i> Vehicles
+          </a>
+        </li>
+        <li>
+          <a href="/logout">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+          </a>
+        </li>
+      </ul>
+    </aside>
+    <main class="content">
+      <section class="fuel-statistics">
+        <h2><i class="fa-solid fa-chart-line"></i> Fuel Statistics</h2>
+        <div class="stats">
+          <div class="stat-box">
+            <h3>Total Consumption</h3>
+            <p>{{ total_fuel_consumption }} liters</p>
+          </div>
+          <div class="stat-box">
+            <h3>Total Cost</h3>
+            <p>${{ total_fuel_cost }}</p>
+          </div>
+          <div class="stat-box">
+            <h3>Average Consumption</h3>
+            <p>{{ avg_consumption }} liters per vehicle</p>
+          </div>
+          <div class="stat-box">
+            <h3>Efficiency Rating</h3>
+            <p>{{ efficiency_rating }}</p>
+          </div>
+        </div>
+      </section>
+      <section class="fuel-records">
+        <h2><i class="fa-solid fa-receipt"></i> Fuel Records</h2>
+        <table class="records-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Vehicle</th>
+              <th>Driver</th>
+              <th>Quantity (liters)</th>
+              <th>Cost</th>
+              <th>Location</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for record in fuel_records %}
+            <tr>
+              <td>{{ record.date }}</td>
+              <td>{{ record.vehicle.name }}</td>
+              <td>{{ record.driver.name }}</td>
+              <td>{{ record.quantity }}</td>
+              <td>${{ record.cost }}</td>
+              <td>{{ record.location }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
